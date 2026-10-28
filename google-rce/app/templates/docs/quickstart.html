@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Quickstart{% endblock %}
+{% block body %}
+<div class="crumbs">Home &nbsp;&rsaquo;&nbsp; Get started &nbsp;&rsaquo;&nbsp; Quickstart</div>
+<h1>Quickstart</h1>
+<p class="lede">Call your first Nimbus Platform endpoint.</p>
+
+<h2>1. Install the SDK</h2>
+<pre><code>pip install nimbus-platform</code></pre>
+
+<h2>2. Sign in to the portal</h2>
+<p>Use <b>Sign in</b> in the header, or hit the endpoint directly:</p>
+<pre><code>curl -sI 'http://localhost:13337/oauth2authorize?return_url=%2Fdocs%2Fquickstart'</code></pre>
+<p>The portal issues a session cookie and redirects you to the consent screen. See
+<a href="/docs/authentication">Authentication</a> for what the cookie carries.</p>
+
+<h2>3. Make a call</h2>
+<pre><code>from nimbus import Client
+
+client = Client()
+print(client.buckets.list(project="demo"))</code></pre>
+
+<h2>4. Next steps</h2>
+<ul>
+  <li><a href="/docs/authentication">Authentication</a> &mdash; sign-in endpoints and session layout.</li>
+  <li><a href="/docs/changelog">Changelog</a> &mdash; what shipped recently.</li>
+</ul>
+{% endblock %}

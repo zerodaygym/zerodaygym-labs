@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Nimbus Platform docs{% endblock %}
+{% block body %}
+<div class="crumbs">Home</div>
+<h1>Build on Nimbus</h1>
+<p class="lede">APIs, SDKs and reference material for the Nimbus Platform. Sign in with your
+Nimbus Account to sync your progress, save code samples and manage API keys.</p>
+
+<div class="cards">
+  <a class="card" href="/docs/quickstart">
+    <h3>Quickstart</h3>
+    <p>Make your first authenticated call in about five minutes.</p>
+  </a>
+  <a class="card" href="/docs/authentication">
+    <h3>Authentication</h3>
+    <p>How the docs portal signs you in, and how sessions are carried.</p>
+  </a>
+  <a class="card" href="/docs/changelog">
+    <h3>Changelog</h3>
+    <p>Platform and documentation-portal release notes.</p>
+  </a>
+</div>
+
+<h2>What's here</h2>
+<table>
+  <tr><th>Area</th><th>Description</th></tr>
+  <tr><td>Compute</td><td>Containers, functions and scheduled jobs.</td></tr>
+  <tr><td>Storage</td><td>Object buckets, queues and the metadata index.</td></tr>
+  <tr><td>Identity</td><td>Nimbus Accounts, OAuth 2.0 clients, service identities.</td></tr>
+  <tr><td>Observability</td><td>Metrics, traces and log sinks.</td></tr>
+</table>
+
+<div class="note">
+  <b>Note:</b> this documentation portal shares one sign-in integration with every other
+  Nimbus developer site, so signing in here signs you in across all of them.
+</div>
+
+<h2>Portal source</h2>
+<p>The portal is a Python web application. Dependency manifest, as shipped:</p>
+<pre><code>Flask==2.2.5
+oauth2client==4.1.3
+httplib2==0.22.0
+gunicorn==21.2.0</code></pre>
+<p>See <a href="/docs/authentication">Authentication</a> for the sign-in endpoints.</p>
+{% endblock %}

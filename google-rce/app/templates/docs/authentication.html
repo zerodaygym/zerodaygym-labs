@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Authentication{% endblock %}
+{% block body %}
+<div class="crumbs">Home &nbsp;&rsaquo;&nbsp; Platform &nbsp;&rsaquo;&nbsp; Authentication</div>
+<h1>Authentication</h1>
+<p class="lede">The documentation portal uses OAuth 2.0 against Nimbus Accounts. This page
+documents the sign-in endpoints the portal exposes and how portal sessions are carried.</p>
+
+<h2>Sign-in endpoints</h2>
+<table>
+  <tr><th>Endpoint</th><th>Method</th><th>Purpose</th></tr>
+  <tr><td><code>/oauth2authorize</code></td><td>GET</td>
+      <td>Starts the flow and redirects to the Nimbus Accounts consent screen.
+          Takes an optional <code>return_url</code>.</td></tr>
+  <tr><td><code>/oauth2callback</code></td><td>GET</td>
+      <td>Consent screen returns here with <code>state</code> and <code>code</code>.
+          The portal exchanges the code for credentials.</td></tr>
+</table>
+
+<p>Starting a flow needs no account:</p>
+<pre><code>curl -s -D headers.txt -o /dev/null \
+  'http://localhost:13337/oauth2authorize?return_url=%2F'</code></pre>
+
+<h2>Portal sessions</h2>
+<p>The portal is stateless. There is no server-side session store: everything the
+callback needs is carried in the <code>session</code> cookie, which is signed with the
+application's secret key so that clients cannot tamper with it.</p>
+
+<p>Keys the portal places in the session:</p>
+<table>
+  <tr><th>Key</th><th>Contents</th></tr>
+  <tr><td><code>google_oauth2_csrf_token</code></td>
+      <td>Per-flow CSRF token. Must match <code>csrf_token</code> inside the
+          <code>state</code> parameter handed back by the consent screen.</td></tr>
+  <tr><td><code>google_oauth2_flow_&lt;csrf&gt;</code></td>
+      <td>The in-progress flow object, serialized. The callback reads it back out
+          to perform the code exchange.</td></tr>
+  <tr><td><code>google_oauth2_credentials</code></td>
+      <td>Credentials for the signed-in user, once the exchange succeeds.</td></tr>
+</table>
+
+<div class="note">
+  <b>Note:</b> session keys carry the <code>google_oauth2_</code> prefix because the portal
+  uses the <code>oauth2client</code> Flask integration. The prefix has no bearing on which
+  identity provider is configured.
+</div>
+
+<h2>Callback responses</h2>
+<table>
+  <tr><th>Response</th><th>Cause</th></tr>
+  <tr><td><code>Invalid request</code></td>
+      <td>Missing <code>state</code>, missing <code>code</code>, or no CSRF token in the session.</td></tr>
+  <tr><td><code>Invalid request state</code></td>
+      <td><code>state</code> unparseable, CSRF mismatch, or no stored flow for that token.</td></tr>
+  <tr><td><code>An error occurred: ...</code></td>
+      <td>The code exchange was attempted and the identity provider rejected it.</td></tr>
+  <tr><td><code>302</code> to <code>return_url</code></td><td>Sign-in complete.</td></tr>
+</table>
+
+<h2>Configuration</h2>
+<p>Portal deployments read the following at start-up. Operators are asked to keep the
+number of distinct secrets low so that rotation stays manageable across the fleet.</p>
+<pre><code>SECRET_KEY                     # signs the session cookie
+NIMBUS_OAUTH2_CLIENT_ID        # OAuth 2.0 client identifier
+NIMBUS_OAUTH2_CLIENT_SECRET    # OAuth 2.0 client secret</code></pre>
+{% endblock %}

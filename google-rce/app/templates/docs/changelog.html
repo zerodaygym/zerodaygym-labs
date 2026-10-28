@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Changelog{% endblock %}
+{% block body %}
+<div class="crumbs">Home &nbsp;&rsaquo;&nbsp; Platform &nbsp;&rsaquo;&nbsp; Changelog</div>
+<h1>Changelog</h1>
+<p class="lede">Platform and documentation-portal release notes.</p>
+
+<h2>Portal 4.18.2</h2>
+<ul>
+  <li>Sign-in: the portal now marks the flow session as permanent so a slow consent
+      step no longer drops the in-progress flow.</li>
+  <li>Sign-in: consolidated the portal fleet onto a single OAuth 2.0 client so that
+      one consent covers every developer site.</li>
+  <li>Search: fixed ranking for reference pages.</li>
+</ul>
+
+<h2>Portal 4.17.0</h2>
+<ul>
+  <li>Removed the server-side session store. Flow state now rides in the signed
+      session cookie, which lets any portal replica serve any callback.</li>
+  <li>Docs: new <a href="/docs/authentication">Authentication</a> reference page.</li>
+</ul>
+
+<h2>Portal 4.15.4</h2>
+<ul>
+  <li>Pinned <code>oauth2client==4.1.3</code> after an upgrade attempt broke the
+      Flask integration.</li>
+  <li>Dark theme for code samples (rolled back, see 4.15.5).</li>
+</ul>
+{% endblock %}
