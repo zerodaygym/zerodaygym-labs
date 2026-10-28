@@ -2,7 +2,7 @@
 
 ## About this repository
 
-This repository is for labs used in videos for YouTube channel [ZeroDayGym](https://www.youtube.com/@zerodaygym). Many of these labs are developed with heavy AI assistance, to help save time on content creation. However, every lab is thoughtfully designed to be a valuable learning resource and tested before publishing. That's why I encourage you to judge the content of these labs not by the way they were created, but by the lessons you learn from them (aka, sorry for AI slopping :P).
+This repository was created for labs used in videos for YouTube channel [ZeroDayGym](https://www.youtube.com/@zerodaygym). Many of these labs are developed with heavy AI assistance, to help save time on content creation. However, every lab is thoughtfully designed to be a valuable learning resource and tested before publishing. That's why I encourage you to judge the content of these labs not by the way they were created, but by the lessons you learn from them (aka, sorry for AI slopping :P).
 
 ---
 
