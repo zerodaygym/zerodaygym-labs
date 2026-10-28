@@ -1,5 +1,11 @@
 # Google DevSite pickle RCE - local lab
 
+This is a lab, created for my video about finding Google RCE: https://youtu.be/j502WKWR2u0.
+
+All content below is AI generated lab writeup/explanation:
+
+---
+
 Docker lab for my YouTube video. Recreates [Simon Koeck's $90k Google DevSite RCE](https://simonkoeck.com/writeups/google-devsite-flask-session-pickle-rce).
 Runs fully local, no real Google/OAuth stuff.
 
